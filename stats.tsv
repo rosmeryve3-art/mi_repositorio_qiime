@@ -1,0 +1,4 @@
+sample-id	input	filtered	percentage of input passed filter	denoised	merged	percentage of input merged	non-chimeric	percentage of input non-chimeric
+#q2:types	numeric	numeric	numeric	numeric	numeric	numeric	numeric	numeric
+Sample_134716	1000	655	65.5	511	427	42.7	427	42.7
+Sample_134717	1000	748	74.8	685	618	61.8	618	61.8
