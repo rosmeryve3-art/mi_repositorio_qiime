@@ -6,3 +6,4 @@ Este repositorio contiene los metadatos y las visualizaciones del análisis de a
 - `sample-metadata.tsv`: Metadatos de las muestras.
 - `demux-summary.qzv`: Reporte de calidad de las secuencias.
 - `taxa-bar-plots.qzv`: Gráfico de barras de la composición taxonómica.
+- [Ver el pipeline completo con los comandos utilizados](PIPELINE.md)
