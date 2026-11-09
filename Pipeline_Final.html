@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>PIPELINE</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#exportar-tabla-formato-biom"
+id="toc-exportar-tabla-formato-biom">Exportar tabla (formato
+BIOM)</a></li>
+<li><a href="#convertir-biom-a-tsv"
+id="toc-convertir-biom-a-tsv">Convertir BIOM a TSV</a></li>
+<li><a href="#exportar-taxonomía" id="toc-exportar-taxonomía">Exportar
+taxonomía</a></li>
+<li><a href="#exportar-estadísticas-dada2"
+id="toc-exportar-estadísticas-dada2">Exportar estadísticas
+DADA2</a></li>
+</ul>
+</nav>
+<p>Pipeline de Análisis Metagenómico (rachis-qiime2-2026.10) Este
+documento detalla el flujo de trabajo reproducible utilizado para el
+análisis de amplicones 16S rRNA. Incluye las adaptaciones necesarias
+para la versión 2026.10 de QIIME 2.</p>
+<ol type="1">
+<li>Preparación de Datos Creación del archivo manifest.tsv con las rutas
+absolutas de los archivos FASTQ:</li>
+</ol>
+<p>bash printf
+“sample-id-absolute-filepath-absolute-filepath_134716reación del archivo
+de metadatos:</p>
+<p>bash printf “#SampleID_134716_134717” &gt; sample-metadata.tsv 2.
+Importación y Control de Calidad Importación de las secuencias a formato
+QIIME 2 (.qza):</p>
+<p>bash qiime tools import<br />
+–type ‘SampleData[PairedEndSequencesWithQuality]’<br />
+–input-path fastq/manifest.tsv<br />
+–output-path demux-paired-end.qza<br />
+–input-format PairedEndFastqManifestPhred33V2 Resumen visual de la
+calidad:</p>
+<p>bash qiime demux summarize<br />
+–i-data demux-paired-end.qza<br />
+–o-visualization demux-summary.qzv 3. Denoising (DADA2) Nota: La versión
+2026.10 requiere el parámetro obligatorio –o-base-transition-stats.</p>
+<p>bash qiime dada2 denoise-paired<br />
+–i-demultiplexed-seqs demux-paired-end.qza<br />
+–p-trim-left-f 0<br />
+–p-trim-left-r 0<br />
+–p-trunc-len-f 0<br />
+–p-trunc-len-r 0<br />
+–o-table table.qza<br />
+–o-representative-sequences rep-seqs.qza<br />
+–o-denoising-stats denoising-stats.qza<br />
+–o-base-transition-stats base-transition-stats.qza 4. Filogenia y
+Taxonomía Construcción del árbol filogenético:</p>
+<p>bash qiime phylogeny align-to-tree-mafft-fasttree<br />
+–i-sequences rep-seqs.qza<br />
+–o-alignment aligned-rep-seqs.qza<br />
+–o-masked-alignment masked-aligned-rep-seqs.qza<br />
+–o-tree unrooted-tree.qza<br />
+–o-rooted-tree rooted-tree.qza Clasificación taxonómica usando VSEARCH
+(para evitar errores de memoria con Naive Bayes):</p>
+<p>bash qiime feature-classifier classify-consensus-vsearch<br />
+–i-query rep-seqs.qza<br />
+–i-reference-reads silva-138-99-seqs.qza<br />
+–i-reference-taxonomy silva-138-99-tax.qza<br />
+–o-classification taxonomy.qza<br />
+–o-search-results search-results.qza<br />
+–p-threads 0 Gráfico de barras taxonómicas:</p>
+<p>bash qiime taxa barplot<br />
+–i-table table.qza<br />
+–i-taxonomy taxonomy.qza<br />
+–m-metadata-file sample-metadata.tsv<br />
+–o-visualization taxa-bar-plots.qzv 5. Exportación de Resultados
+Conversión de los archivos .qza a formatos abiertos para su análisis en
+Excel/R:</p>
+<p>bash # Crear carpeta mkdir -p exportados</p>
+<h1 id="exportar-tabla-formato-biom">Exportar tabla (formato BIOM)</h1>
+<p>qiime tools export –input-path table.qza –output-path
+exportados/tabla_asvs</p>
+<h1 id="convertir-biom-a-tsv">Convertir BIOM a TSV</h1>
+<p>biom convert -i exportados/tabla_asvs/feature-table.biom -o
+exportados/tabla_asvs/feature-table.tsv –to-tsv</p>
+<h1 id="exportar-taxonomía">Exportar taxonomía</h1>
+<p>qiime tools export –input-path taxonomy.qza –output-path
+exportados/taxonomia</p>
+<h1 id="exportar-estadísticas-dada2">Exportar estadísticas DADA2</h1>
+<p>qiime tools export –input-path denoising-stats.qza –output-path
+exportados/estadisticas_dada2 Paso 3: Verificar que quedó bien Antes de
+generar el PDF, verifica que el archivo esté correcto. Ejecuta:</p>
+<p>bash head -n 15 PIPELINE.md Deberías ver las comillas invertidas
+(```bash) y los comandos completos (como –type y printf).</p>
+<p>Paso 4: Generar el PDF definitivo Ahora que el archivo está bien,
+ejecuta este comando para generar el PDF (este comando le dice a LaTeX
+que corte las líneas largas automáticamente para que no se salgan de la
+hoja):</p>
+bash pandoc PIPELINE.md -o Pipeline_Profesional.pdf<br />
+–pdf-engine=xelatex<br />
+–toc<br />
+-V geometry:margin=2cm<br />
+-V fontsize=10pt<br />
+-V documentclass=article<br />
+-V mainfont=“DejaVu Sans”<br />
+-V monofont=“DejaVu Sans Mono”<br />
+-V lang=es<br />
+-V title=“Pipeline de Análisis Metagenómico”<br />
+-V author=“rosmeryve3-art”<br />
+-H &lt;(echo ’
+<p>’) Finalmente, cópialo a Windows:</p>
+<p>bash cp Pipeline_Profesional.pdf /mnt/c/Users/User/Downloads/</p>
+</body>
+</html>

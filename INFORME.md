@@ -1,3 +1,4 @@
+cat << 'EOF' > INFORME.md
 # Informe de Análisis Metagenómico (16S rRNA)
 
 ## 1. Resumen Ejecutivo
@@ -12,7 +13,10 @@ En el presente informe, se detalla el análisis de amplicones de las muestras `S
 ## 3. Resultados Principales
 
 ### 3.1. Calidad y Denoising
-Tanto PairedEndSequencesWithQuality como el filtrado DADA2 muestran un comportamiento óptimo. Las 2,000 secuencias iniciales fueron retenidas en su totalidad. Puedes visualizar el reporte de calidad en [view.qiime2.org](https://view.qiime2.org).
+Tanto PairedEndSequencesWithQuality como el filtrado DADA2 muestran un comportamiento óptimo. Las 2,000 secuencias iniciales fueron retenidas en su totalidad.
+
+![Calidad Forward](demultiplex-summary-forward.png)
+![Calidad Reverse](demultiplex-summary-reverse.png)
 
 - **Archivo:** [Demux Summary](demux-summary.qzv)
 - **Estadísticas DADA2:** [Stats](stats.tsv)
@@ -24,6 +28,8 @@ El análisis taxonómico reveló que la comunidad está dominada por filos típi
 - **Proteobacteria (Alpha y Gamma)**: Con géneros como `Polynucleobacter` y `Limnohabitans`.
 - `Unassigned`: Solo 1 ASV no pudo ser clasificado.
 
+![Gráfico de barras taxonómicas](taxonomia-1.png)
+
 [Ver Gráfico de Barras Taxonómicas](taxa-bar-plots.qzv)
 
 ## 4. Conclusiones
@@ -32,3 +38,4 @@ El pipeline de análisis metagenómico fue ejecutado con éxito. La aplicación 
 ## 5. Referencias
 * Bolyen E., et al. (2019). QIIME 2: Reproducible, interactive, scalable and extensible microbiome data science. Nature Biotechnology.
 * Rognes T., et al. (2016). VSEARCH: a versatile open source tool for metagenomics. PeerJ.
+EOF
