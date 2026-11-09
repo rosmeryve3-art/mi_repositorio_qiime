@@ -1,4 +1,3 @@
-cat << 'EOF' > INFORME.md
 # Informe de Análisis Metagenómico (16S rRNA)
 
 ## 1. Resumen Ejecutivo
@@ -13,29 +12,42 @@ En el presente informe, se detalla el análisis de amplicones de las muestras `S
 ## 3. Resultados Principales
 
 ### 3.1. Calidad y Denoising
-Tanto PairedEndSequencesWithQuality como el filtrado DADA2 muestran un comportamiento óptimo. Las 2,000 secuencias iniciales fueron retenidas en su totalidad.
+El reporte de calidad generado por QIIME 2 (`demux-summary.qzv`) incluye un histograma de frecuencia que, debido a la naturaleza sintética de los datos (todas las muestras tienen exactamente la misma cantidad de secuencias), se visualiza como un bloque sólido sin variación. Por esta razón, es más útil presentar los datos tabulares de conteo de secuencias por muestra, que son los que realmente aportan información cuantitativa.
 
-![Calidad Forward](demultiplex-summary-forward.png)
-![Calidad Reverse](demultiplex-summary-reverse.png)
+La siguiente tabla resume el número de lecturas (reads) obtenidas para cada muestra y en cada dirección:
 
-- **Archivo:** [Demux Summary](demux-summary.qzv)
-- **Estadísticas DADA2:** [Stats](stats.tsv)
+| Muestra (Sample ID) | Reads Forward | Reads Reverse |
+| :--- | :---: | :---: |
+| Sample_134716 | 1000 | 1000 |
+| Sample_134717 | 1000 | 1000 |
+
+**Interpretación:** Ambas muestras presentan exactamente la misma cantidad de lecturas en las dos direcciones (1000 forward y 1000 reverse), lo que confirma que la preparación de las librerías y la secuenciación fueron uniformes. Al ser datos de prueba, no hay variación en la profundidad de secuenciación entre muestras.
+
+Adicionalmente, los resultados del filtrado y denoising realizados por DADA2 se pueden consultar en el archivo de estadísticas:
+
+- **Archivo interactivo de calidad:** [Demux Summary](demux-summary.qzv)
+- **Estadísticas del filtrado DADA2:** [Stats](stats.tsv)
 
 ### 3.2. Composición Taxonómica
-El análisis taxonómico reveló que la comunidad está dominada por filos típicos de ecosistemas acuáticos. Los grupos más abundantes fueron:
-- **Cyanobacteria**: Especialmente dentro del género `Cyanobium_PCC-6307` y el grupo `Chloroplast` de algas verdes.
-- **Actinobacteriota**: Con el género `HGCI_clade`, típico de ambientes de agua dulce.
-- **Proteobacteria (Alpha y Gamma)**: Con géneros como `Polynucleobacter` y `Limnohabitans`.
-- `Unassigned`: Solo 1 ASV no pudo ser clasificado.
+El análisis taxonómico (basado en la tabla de ASVs `taxonomy.tsv`) reveló una comunidad dominada por filos típicos de ecosistemas acuáticos. A continuación se presenta el resumen de los grupos más abundantes:
 
-![Gráfico de barras taxonómicas](taxonomia-1.png)
+| Filo (Phylum) | Número de ASVs | Explicación Biológica |
+| :--- | :---: | :--- |
+| **Cyanobacteria** | 13 | Algas verdeazuladas. Incluye el género `Cyanobium_PCC-6307` y el grupo `Chloroplast` (algas verdes). Típicos de aguas dulces. |
+| **Actinobacteriota** | 7 | Bacterias Gram-positivas. El género `HGCI_clade` es muy común en lagos y ríos. |
+| **Proteobacteria** | 6 | Filo muy diverso. Incluye géneros acuáticos como `Polynucleobacter` y `Limnohabitans`. |
+| **Bacteroidota** | 6 | Bacterias degradadoras de materia orgánica. Incluye géneros como `Fluviicola`. |
+| **Verrucomicrobiota** | 4 | Bacterias comunes en suelos y aguas, muchas veces asociadas a partículas. |
+| **Planctomycetota** | 1 | Bacterias con estructuras celulares inusuales, comunes en ambientes acuáticos. |
+| **Armatimonadota** | 1 | Filo poco común, encontrado en ambientes fríos o acuáticos. |
+| **Unassigned** | 1 | ASV que no pudo ser clasificado con la base de datos SILVA. |
 
-[Ver Gráfico de Barras Taxonómicas](taxa-bar-plots.qzv)
+*Nota: Puedes explorar la composición visual interactiva en el siguiente enlace:*
+[Ver Gráfico de Barras Taxonómicas Interactivo](taxa-bar-plots.qzv)
 
 ## 4. Conclusiones
-El pipeline de análisis metagenómico fue ejecutado con éxito. La aplicación del filtro DADA2 y la clasificación con VSEARCH permitieron obtener una tabla de ASVs limpia y debidamente anotada. El perfil taxonómico denota una comunidad bacteriana característica de ambientes acuáticos, con predominancia de cianobacterias y proteobacterias. Este software funciona como uno de los mejores flujos de trabajo reproducibles para este tipo de análisis.
+El pipeline de análisis metagenómico fue ejecutado con éxito. La aplicación del filtro DADA2 y la clasificación con VSEARCH permitieron obtener una tabla de ASVs limpia y debidamente anotada. El perfil taxonómico denota una comunidad bacteriana característica de ambientes acuáticos, con predominancia de cianobacterias y proteobacterias. La inclusión de tablas de abundancias y retención de secuencias proporciona una visión cuantitativa clara y sin ambigüedades visuales.
 
 ## 5. Referencias
 * Bolyen E., et al. (2019). QIIME 2: Reproducible, interactive, scalable and extensible microbiome data science. Nature Biotechnology.
 * Rognes T., et al. (2016). VSEARCH: a versatile open source tool for metagenomics. PeerJ.
-EOF
